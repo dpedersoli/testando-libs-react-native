@@ -1,33 +1,23 @@
+const ColorHue = require('./styles/color-hue.js')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // NOTE: Update this to include the paths to all files that contain Nativewind classes.
-  content: ['./app/**/*.{js,jsx,ts,tsx}', './components/**/*.{js,jsx,ts,tsx'],
+  darkMode: 'media',
+  content: ['./app/**/*.{js,jsx,ts,tsx}', './components/**/*.{js,jsx,ts,tsx}'],
   presets: [require('nativewind/preset')],
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        primary: ColorHue.primary,
+        secondary: ColorHue.secondary,
+        tertiary: ColorHue.tertiary,
+        surface: ColorHue.surface,
+        background: ColorHue.background,
+        error: ColorHue.error,
+        outline: ColorHue.outline,
+        opaque: ColorHue.opaque
+      }
+    }
   },
   plugins: []
 }
-
-// theme: {
-//   extend: {
-//     colors: {
-//       primary: {
-//         50: '#eef2ff',
-//         100: '#e0e7ff',
-//         200: '#c7d2fe',
-//         300: '#a5b4fc',
-//         400: '#818cf8',
-//         500: '#6366f1',
-//         600: '#4f46e5',
-//         700: '#4338ca',
-//         800: '#3730a3',
-//         900: '#312e81'
-//       }
-//     }
-//   }
-// },
-// plugins: [
-//   // Plugins oficiais ou personalizados, ex:
-//   require('nativewind/tailwind/css')()
-// ]

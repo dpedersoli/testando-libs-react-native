@@ -1,5 +1,6 @@
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { View, Text, Pressable } from 'react-native'
+import { View } from 'react-native'
+import { Button, Text } from 'react-native-paper'
 
 export default function Details() {
   const router = useRouter()
@@ -10,12 +11,17 @@ export default function Details() {
   }
 
   return (
-    <View>
-      <Text>DETAILS</Text>
+    <View className="px-4 space-y-2">
+      <Text variant="headlineLarge">DETAILS</Text>
 
-      <Pressable onPress={navigateToHome}>
-        <Text>Go to home</Text>
-      </Pressable>
+      <Button
+        mode="contained"
+        buttonColor="#67E480"
+        className="mb-2"
+        onPress={navigateToHome}
+      >
+        Go to home
+      </Button>
 
       <Text>ID: {id}</Text>
       <Text>Title: {title}</Text>
