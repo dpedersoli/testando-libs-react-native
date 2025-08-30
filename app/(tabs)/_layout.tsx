@@ -3,7 +3,6 @@ import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { Link, Tabs } from 'expo-router'
 import { Pressable } from 'react-native'
 
-import { useClientOnlyValue } from '@/components/useClientOnlyValue'
 import useAppTheme from '@/hooks/useAppTheme'
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -29,8 +28,7 @@ export default function TabLayout() {
         headerStyle: {
           backgroundColor: colors.primary
         },
-        headerTintColor: colors.tertiary,
-        headerShown: useClientOnlyValue(false, true)
+        headerTintColor: colors.tertiary
       }}
     >
       <Tabs.Screen

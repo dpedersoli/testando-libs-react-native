@@ -18,8 +18,8 @@ export default function Home() {
 
   return (
     <View className="flex-1 bg-light-background dark:bg-dark-background">
-      <View className="bg-primary p-4">
-        <Text className="p-4 rounded-lg bg-primary-30 border border-outline-20 shadow-md">
+      <View className="bg-primary-dark dark:bg-primary-light p-4">
+        <Text className="p-4 rounded-lg bg-onPrimary-dark dark:bg-onPrimary-light border-outline-20 shadow-md">
           Welcome to Nativewind! - HOME
         </Text>
       </View>
