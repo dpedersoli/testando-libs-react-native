@@ -1,18 +1,18 @@
-import useAppTheme from '@/hooks/useAppTheme'
-import { shadow } from '@/styles/colors'
-import { Link, useRouter } from 'expo-router'
-import { View } from 'react-native'
-import { Text, Button } from 'react-native-paper'
+import useAppTheme from '@/hooks/useAppTheme';
+import { shadow } from '@/styles/colors';
+import { Link, useRouter } from 'expo-router';
+import { View } from 'react-native';
+import { Text, Button } from 'react-native-paper';
 
 export default function Home() {
-  const router = useRouter()
-  const { colors, customColors } = useAppTheme()
+  const router = useRouter();
+  const { colors, customColors } = useAppTheme();
 
   function navigateToDetails() {
     router.replace({
       pathname: '/home/details',
-      params: { id: '1', title: 'Title' }
-    })
+      params: { id: '1', title: 'Title' },
+    });
   }
 
   return (
@@ -27,9 +27,7 @@ export default function Home() {
         <Text className="text-light-foreground dark:text-dark-foreground text-lg">
           Conteúdo do Card
         </Text>
-        <Text className="text-light-comment dark:text-dark-comment mt-2">
-          Texto secundário
-        </Text>
+        <Text className="text-light-comment dark:text-dark-comment mt-2">Texto secundário</Text>
       </View>
 
       <Text variant="headlineLarge">Título Principal</Text>
@@ -42,8 +40,7 @@ export default function Home() {
           buttonColor={customColors.tertiary[10]}
           textColor={customColors.error[10]}
           className="mb-2"
-          onPress={navigateToDetails}
-        >
+          onPress={navigateToDetails}>
           Go to details
         </Button>
 
@@ -51,19 +48,32 @@ export default function Home() {
           mode="contained"
           buttonColor={colors.primary}
           textColor={colors.onPrimary}
-          contentStyle={shadow(4)}
-        >
+          contentStyle={shadow(4)}>
           <Link
             href={{
               pathname: '/home/settings',
-              params: { id: '2', title: 'Meu Item' }
+              params: { id: '2', title: 'Meu Item' },
             }}
-            asChild
-          >
+            asChild>
             <Text>Go to settings</Text>
+          </Link>
+        </Button>
+
+        <Button
+          mode="contained"
+          buttonColor={customColors.tertiary[10]}
+          contentStyle={shadow(4)}
+          className="mt-2">
+          <Link
+            href={{
+              pathname: '/home/form',
+              params: { id: '2', title: 'Meu Item' },
+            }}
+            asChild>
+            <Text>Go to form</Text>
           </Link>
         </Button>
       </View>
     </View>
-  )
+  );
 }

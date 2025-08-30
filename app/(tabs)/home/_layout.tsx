@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router'
+import { Stack } from 'expo-router';
 
 export default function HomeLayout() {
   return (
@@ -6,6 +6,7 @@ export default function HomeLayout() {
       <Stack.Screen name="index" options={{ headerShown: true }} />
       <Stack.Screen name="details" options={{ headerShown: true }} />
       <Stack.Screen name="settings" options={{ headerShown: true }} />
+      <Stack.Screen name="form" options={{ headerShown: true }} />
     </Stack>
-  )
+  );
 }
