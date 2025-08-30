@@ -2,8 +2,7 @@ import useAppTheme from '@/hooks/useAppTheme'
 import { shadow } from '@/styles/colors'
 import { Link, useRouter } from 'expo-router'
 import { View } from 'react-native'
-import { Text } from 'react-native-paper'
-import { Button } from 'react-native-paper'
+import { Text, Button } from 'react-native-paper'
 
 export default function Home() {
   const router = useRouter()
