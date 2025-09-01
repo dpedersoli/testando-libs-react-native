@@ -1,6 +1,6 @@
-import { MD3DarkTheme, MD3LightTheme } from 'react-native-paper'
-import { Platform } from 'react-native'
-import ColorHue from '../styles/color-hue'
+import { MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
+import { Platform } from 'react-native';
+import ColorHue from '../styles/color-hue';
 
 export function shadow(elevation: number) {
   return (
@@ -9,11 +9,11 @@ export function shadow(elevation: number) {
         shadowColor: '#000',
         shadowOpacity: 0.3,
         shadowOffset: { width: 0, height: elevation },
-        shadowRadius: elevation
+        shadowRadius: elevation,
       },
-      android: { elevation }
+      android: { elevation },
     }) || {}
-  )
+  );
 }
 
 export const lightSchema = {
@@ -46,8 +46,8 @@ export const lightSchema = {
   inversePrimary: ColorHue.primary[0],
   inverseSurface: ColorHue.surface[0],
   inverseOnSurface: ColorHue.surface[40],
-  backdrop: ColorHue.opaque
-}
+  backdrop: ColorHue.opaque,
+};
 
 export const darkSchema = {
   ...MD3DarkTheme.colors,
@@ -79,7 +79,7 @@ export const darkSchema = {
   inversePrimary: ColorHue.primary[20],
   inverseSurface: ColorHue.surface[40],
   inverseOnSurface: ColorHue.surface[0],
-  backdrop: ColorHue.opaque
-}
+  backdrop: ColorHue.opaque,
+};
 
-export type AppColors = typeof lightSchema
+export type AppColors = typeof lightSchema;

@@ -1,22 +1,46 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import React, { useRef } from 'react';
+import { SafeAreaView, StyleSheet, View, type TextInput as RNTextInputType } from 'react-native';
 import { TextInput, Button, HelperText } from 'react-native-paper';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Input from '@/components/Input/Input';
 
-const registerSchema = z.object({
-  name: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),
-  email: z.string(),
+export const registerSchema = z.object({
+  name: z
+    .string()
+    .min(2, 'Nome deve ter pelo menos 2 caracteres')
+    .max(50, 'Nome não pode ter mais de 50 caracteres'),
+
+  email: z.string().min(1, 'E-mail é obrigatório'),
+
   password: z
     .string()
-    .min(6, 'Senha deve ter no mínimo 6 caracteres')
-    .regex(/[A-Z]/, 'Deve conter ao menos uma letra maiúscula'),
+    .min(8, 'Senha deve ter no mínimo 8 caracteres')
+    .regex(/[A-Z]/, 'Deve conter ao menos uma letra maiúscula')
+    .regex(/[a-z]/, 'Deve conter ao menos uma letra minúscula')
+    .regex(/\d/, 'Deve conter ao menos um número'),
+
+  phone: z
+    .string()
+    .min(10, 'Telefone deve ter pelo menos 10 dígitos')
+    .max(11, 'Telefone não pode ter mais de 11 dígitos')
+    .regex(/^\d+$/, 'Telefone deve conter apenas números'),
+
+  description: z
+    .string()
+    .min(2, 'Nome deve ter pelo menos 2 caracteres')
+    .max(200, 'Nome não pode ter mais de 200 caracteres'),
 });
 
 type RegisterFormData = z.infer<typeof registerSchema>;
 
 export default function Form() {
+  const emailRef = useRef<RNTextInputType>(null);
+  const passwordRef = useRef<RNTextInputType>(null);
+  const phoneRef = useRef<RNTextInputType>(null);
+  const descriptionRef = useRef<RNTextInputType>(null);
+
   const {
     control,
     handleSubmit,
@@ -27,96 +51,99 @@ export default function Form() {
       name: '',
       email: '',
       password: '',
+      phone: '',
+      description: '',
     },
   });
 
+  const handlePhoneChange = (value: string) => {
+    return value.replace(/\D+/g, '');
+  };
+
   const onSubmit = (data: RegisterFormData) => {
     console.log('Dados válidos:', data);
-    // Aqui você pode chamar sua API, navegar, etc.
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.form}>
-        {/* Campo Nome */}
-        <Controller
+    <SafeAreaView className="flex-1 justify-center p-4 border-2 border-solid border-red-500">
+      <View className="gap-3">
+        <Input
+          name="Name"
+          identifier="name"
+          placeholder="Nome"
           control={control}
-          name="name"
-          render={({ field: { value, onChange, onBlur } }) => (
-            <>
-              <TextInput
-                label="Nome"
-                mode="outlined"
-                value={value}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                autoCapitalize="words"
-                style={styles.input}
-              />
-              {errors.name && (
-                <HelperText type="error" visible>
-                  {errors.name.message}
-                </HelperText>
-              )}
-            </>
-          )}
+          error={errors.name}
+          required
+          autoCapitalize="words"
+          autoComplete="name"
+          returnKeyType="next"
+          maxLength={5}
+          onSubmitEditing={() => emailRef.current?.focus()}
         />
 
-        {/* Campo E-mail */}
-        <Controller
+        <Input
+          ref={emailRef}
+          name="Email"
+          identifier="email"
+          placeholder="Email"
           control={control}
-          name="email"
-          render={({ field: { value, onChange, onBlur } }) => (
-            <>
-              <TextInput
-                label="E-mail"
-                mode="outlined"
-                value={value}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                keyboardType="email-address"
-                autoCapitalize="none"
-                style={styles.input}
-              />
-              {errors.email && (
-                <HelperText type="error" visible>
-                  {errors.email.message}
-                </HelperText>
-              )}
-            </>
-          )}
+          error={errors.email}
+          required
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoComplete="email"
+          returnKeyType="next"
+          onSubmitEditing={() => passwordRef.current?.focus()}
         />
 
-        {/* Campo Senha */}
-        <Controller
+        <Input
+          ref={passwordRef}
+          name="Password"
+          identifier="password"
+          placeholder="Senha"
           control={control}
-          name="password"
-          render={({ field: { value, onChange, onBlur } }) => (
-            <>
-              <TextInput
-                label="Senha"
-                mode="outlined"
-                value={value}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                secureTextEntry
-                style={styles.input}
-              />
-              {errors.password && (
-                <HelperText type="error" visible>
-                  {errors.password.message}
-                </HelperText>
-              )}
-            </>
-          )}
+          error={errors.password}
+          required
+          secureTextEntry
+          returnKeyType="next"
+          onSubmitEditing={() => phoneRef.current?.focus()}
         />
 
-        {/* Botão de enviar */}
+        <Input
+          ref={phoneRef}
+          name="Phone Number"
+          identifier="phone"
+          placeholder="(555) 123-4567"
+          control={control}
+          error={errors.phone}
+          mask="US_PHONE_DYNAMIC"
+          required
+          keyboardType="phone-pad"
+          returnKeyType="next"
+          maxLength={17}
+          customOnChange={handlePhoneChange}
+          onSubmitEditing={() => descriptionRef.current?.focus()}
+        />
+
+        <Input
+          ref={descriptionRef}
+          name="Description"
+          identifier="description"
+          placeholder="description"
+          control={control}
+          error={errors.description}
+          required
+          helperText="Descreva sua experiência em até 200 caracteres"
+          maxLength={200}
+          multiline
+          onSubmit={handleSubmit(onSubmit)}
+        />
+
         <Button
           mode="contained"
           loading={isSubmitting}
           onPress={handleSubmit(onSubmit)}
-          style={styles.button}>
+          className="mt-4">
           Registrar
         </Button>
       </View>
@@ -125,18 +152,7 @@ export default function Form() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 16,
-  },
-  form: {
-    gap: 12,
-  },
   input: {
     backgroundColor: 'white',
-  },
-  button: {
-    marginTop: 16,
   },
 });
