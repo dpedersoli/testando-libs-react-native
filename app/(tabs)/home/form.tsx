@@ -65,7 +65,7 @@ export default function Form() {
   };
 
   return (
-    <SafeAreaView className="flex-1 justify-center p-4 border-2 border-solid border-red-500">
+    <SafeAreaView className="flex-1 justify-center p-4">
       <View className="gap-3">
         <Input
           name="Name"
@@ -150,9 +150,3 @@ export default function Form() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  input: {
-    backgroundColor: 'white',
-  },
-});

@@ -18,10 +18,10 @@ export type MasksTypes = keyof typeof Masks;
 export type RNPaperTextInputProps = Omit<React.ComponentProps<typeof TextInput>, 'error'>;
 
 export type InputProps<TFieldValues extends FieldValues> = RNPaperTextInputProps & {
-  name: string | null;
+  name: string;
   control: Control<TFieldValues>;
   identifier: Path<TFieldValues>;
-  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
   mask?: MasksTypes;
   required?: boolean;
   mode?: 'outlined' | 'flat';
@@ -66,19 +66,15 @@ function InputComponent<TFieldValues extends FieldValues>(
     onChange(processed);
   }
 
-  function getBackgroundColor() {
-    if (mode === 'outlined') {
-      return lightBackground ? colors.background : colors.onBackground;
-    }
-    return colors.onBackground;
-  }
+  const backgroundColor =
+    mode === 'outlined' ? (lightBackground ? colors.background : colors.surface) : colors.surface;
 
   return (
     <Controller
       control={control}
       name={identifier}
       render={({ field: { onChange, value } }) => (
-        <View style={{ gap: 8 }}>
+        <View className="gap-2">
           <TextInput
             ref={ref}
             render={(inputProps) => (
@@ -90,29 +86,25 @@ function InputComponent<TFieldValues extends FieldValues>(
             maxLength={maxLength}
             value={value}
             onChangeText={(v) => onChangeComponent(v, onChange)}
-            textColor={colors.background}
-            placeholderTextColor={colors.onPrimary}
-            underlineColor={colors.onBackground}
-            theme={{
-              colors: {
-                primary: error ? colors.error : colors.primary,
-                outline: error ? colors.error : colors.surface,
-                onSurfaceVariant: error ? colors.error : colors.onBackground,
-              },
-              roundness: mode === 'outlined' ? 12 : 4,
-            }}
-            style={{ backgroundColor: getBackgroundColor() }}
+            textColor={colors.onSurface}
+            placeholderTextColor={colors.onSurfaceVariant}
+            underlineColor={colors.outline}
+            activeUnderlineColor={error ? colors.error : colors.primary}
+            outlineColor={error ? colors.error : colors.outline}
+            activeOutlineColor={error ? colors.error : colors.primary}
+            theme={{ roundness: mode === 'outlined' ? 12 : 4 }}
+            style={{ backgroundColor }}
             returnKeyType={onSubmit ? 'done' : 'next'}
             onSubmitEditing={onSubmit || onSubmitEditing}
             {...config}
           />
           {helperText && !error && (
-            <Text variant="bodySmall" style={{ color: colors.primary }}>
+            <Text variant="bodySmall" theme={{ colors: { secondary: colors.secondary } }}>
               {helperText}
             </Text>
           )}
           {error?.message && (
-            <Text variant="labelMedium" style={{ color: colors.error }}>
+            <Text variant="labelMedium" theme={{ colors: { error: colors.error } }}>
               {error.message as string}
             </Text>
           )}
