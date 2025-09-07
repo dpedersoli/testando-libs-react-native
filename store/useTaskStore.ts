@@ -1,50 +1,45 @@
+// src/store/useTaskStore.ts
 import { create } from 'zustand';
 import Realm from 'realm';
-import { useRealm, useQuery } from '../db/realm';
-import { Task as RealmTask } from '../db/schemas'; // agora importa sua classe
+import { Task } from '@/db/schemas';
 
 interface TaskState {
-  tasks: Realm.Results<RealmTask>;
-  loadTasks: () => void;
-  addTask: (title: string) => void;
-  toggleDone: (_id: string) => void;
-  removeTask: (_id: string) => void;
+  tasks: Realm.Results<Task> | Task[];
+  loadTasks: (realm: Realm) => void;
+  addTask: (realm: Realm, title: string) => void;
+  toggleDone: (realm: Realm, _id: string) => void;
+  removeTask: (realm: Realm, _id: string) => void;
 }
 
-export const useTaskStore = create<TaskState>((set, get) => {
-  const realm = useRealm();
-  const allTasks = useQuery<RealmTask>('Task');
+export const useTaskStore = create<TaskState>((set, get) => ({
+  tasks: [],
 
-  return {
-    tasks: allTasks,
+  loadTasks: (realm) => {
+    const all = realm.objects<Task>('Task');
+    set({ tasks: all });
+  },
 
-    loadTasks: () => {
-      // Não é necessário recarregar manualmente, já que useQuery fornece resultados reativos
-      set({ tasks: allTasks });
-    },
-
-    addTask: (title) => {
-      realm.write(() => {
-        realm.create('Task', {
-          _id: new Realm.BSON.ObjectId().toHexString(),
-          title,
-          done: false,
-        });
+  addTask: (realm, title) => {
+    realm.write(() => {
+      realm.create('Task', {
+        _id: new Realm.BSON.ObjectId().toHexString(),
+        title,
+        done: false,
       });
-    },
+    });
+  },
 
-    toggleDone: (_id) => {
-      realm.write(() => {
-        const task = realm.objectForPrimaryKey<RealmTask>('Task', _id);
-        if (task) task.done = !task.done;
-      });
-    },
+  toggleDone: (realm, _id) => {
+    realm.write(() => {
+      const obj = realm.objectForPrimaryKey<Task>('Task', _id);
+      if (obj) obj.done = !obj.done;
+    });
+  },
 
-    removeTask: (_id) => {
-      realm.write(() => {
-        const task = realm.objectForPrimaryKey<RealmTask>('Task', _id);
-        if (task) realm.delete(task);
-      });
-    },
-  };
-});
+  removeTask: (realm, _id) => {
+    realm.write(() => {
+      const obj = realm.objectForPrimaryKey<Task>('Task', _id);
+      if (obj) realm.delete(obj);
+    });
+  },
+}));

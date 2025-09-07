@@ -10,6 +10,7 @@ import { useColorScheme } from 'react-native';
 import { DarkTheme, LightTheme } from '@/styles';
 import { NavigationDarkTheme, NavigationLightTheme } from '@/styles/navigationThemes';
 import { ThemeProvider } from '@react-navigation/native';
+import { RealmWrapper as RealmProvider } from '@/db/realm';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -58,14 +59,16 @@ function RootLayoutNav() {
   const navigationTheme = colorScheme === 'dark' ? NavigationDarkTheme : NavigationLightTheme;
 
   return (
-    <PaperProvider theme={paperTheme}>
-      <ThemeProvider value={navigationTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-          <Stack.Screen name="test" options={{ headerShown: true }} />
-        </Stack>
-      </ThemeProvider>
-    </PaperProvider>
+    <RealmProvider>
+      <PaperProvider theme={paperTheme}>
+        <ThemeProvider value={navigationTheme}>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+            <Stack.Screen name="test" options={{ headerShown: true }} />
+          </Stack>
+        </ThemeProvider>
+      </PaperProvider>
+    </RealmProvider>
   );
 }

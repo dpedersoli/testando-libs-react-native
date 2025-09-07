@@ -1,4 +1,4 @@
-import { useTaskStore } from '@/store/useTaskStore';
+// app/(tabs)/todo.tsx
 import React, { useEffect } from 'react';
 import { View, FlatList, Text, StyleSheet } from 'react-native';
 import { useForm } from 'react-hook-form';
@@ -6,6 +6,9 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Input from '@/components/Input/Input';
 import { Button } from 'react-native-paper';
+import { useRealm, useQuery } from '@/db/realm';
+import { Task } from '@/db/schemas';
+import { useTaskStore } from '@/store/useTaskStore';
 
 export const registerTaskSchema = z.object({
   newTask: z
@@ -17,7 +20,14 @@ export const registerTaskSchema = z.object({
 type RegisterTaskData = z.infer<typeof registerTaskSchema>;
 
 export default function Todo() {
-  const { tasks, loadTasks, addTask, toggleDone, removeTask } = useTaskStore();
+  const realm = useRealm(); // <— HOOK válido dentro do componente
+  const results = useQuery<Task>('Task'); // <— Hook válido dentro do componente
+
+  // const tasks = useTaskStore().tasks;
+  const loadTasks = useTaskStore().loadTasks;
+  const addTask = useTaskStore().addTask;
+  const toggleDone = useTaskStore().toggleDone;
+  const removeTask = useTaskStore().removeTask;
 
   const {
     control,
@@ -26,32 +36,22 @@ export default function Todo() {
     formState: { errors, isSubmitting },
   } = useForm<RegisterTaskData>({
     resolver: zodResolver(registerTaskSchema),
-    defaultValues: {
-      newTask: '',
-    },
+    defaultValues: { newTask: '' },
   });
 
   useEffect(() => {
-    loadTasks();
-  }, []);
+    loadTasks(realm);
+  }, [realm]);
 
   const onSubmit = (data: RegisterTaskData) => {
-    console.log('Dados da Tarefa/Task:', data);
-
-    if (data.newTask) {
-      try {
-        addTask(data.newTask);
-      } catch (error) {
-        console.error({ error });
-      } finally {
-        reset();
-      }
-    }
+    if (!data.newTask) return;
+    addTask(realm, data.newTask);
+    reset();
   };
 
   return (
-    <View className="flex-1 p-4">
-      <View className="flex-row mb-4">
+    <View style={{ flex: 1, padding: 16 }}>
+      <View style={{ flexDirection: 'row', marginBottom: 16 }}>
         <Input
           name="New Task"
           identifier="newTask"
@@ -60,25 +60,26 @@ export default function Todo() {
           error={errors.newTask}
           required
           autoCapitalize="words"
-          maxLength={200}
-          multiline
+          maxLength={50}
           onSubmit={handleSubmit(onSubmit)}
         />
         <Button mode="contained" loading={isSubmitting} onPress={handleSubmit(onSubmit)}>
           Adicionar
         </Button>
       </View>
+
       <FlatList
-        data={tasks}
+        data={results} // dados reativos diretos do Realm
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
-          <View className="flex-row justify-between py-2">
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 8 }}>
             <Text
-              onPress={() => toggleDone(item._id)}
+              onPress={() => toggleDone(realm, item._id)}
               style={item.done ? styles.doneText : styles.text}>
               {item.title}
             </Text>
-            <Button mode="contained" onPress={() => removeTask(item._id)}>
+            <Button mode="contained" onPress={() => removeTask(realm, item._id)}>
               ❌
             </Button>
           </View>
