@@ -67,7 +67,6 @@ export default function Home() {
           <Link
             href={{
               pathname: '/home/form',
-              params: { id: '2', title: 'Meu Item' },
             }}
             asChild>
             <Text>Go to form</Text>

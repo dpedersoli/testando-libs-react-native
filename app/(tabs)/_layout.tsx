@@ -1,20 +1,20 @@
-import React from 'react'
-import FontAwesome from '@expo/vector-icons/FontAwesome'
-import { Link, Tabs } from 'expo-router'
-import { Pressable } from 'react-native'
+import React from 'react';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Link, Tabs } from 'expo-router';
+import { Pressable } from 'react-native';
 
-import useAppTheme from '@/hooks/useAppTheme'
+import useAppTheme from '@/hooks/useAppTheme';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name']
-  color: string
+  name: React.ComponentProps<typeof FontAwesome>['name'];
+  color: string;
 }) {
-  return <FontAwesome size={28} style={{ marginBottom: 0 }} {...props} />
+  return <FontAwesome size={28} style={{ marginBottom: 0 }} {...props} />;
 }
 
 export default function TabLayout() {
-  const { colors, customColors } = useAppTheme()
+  const { colors, customColors } = useAppTheme();
 
   return (
     <Tabs
@@ -23,14 +23,13 @@ export default function TabLayout() {
         tabBarInactiveTintColor: colors.error,
         tabBarStyle: {
           backgroundColor: colors.background,
-          borderTopColor: colors.inversePrimary
+          borderTopColor: colors.inversePrimary,
         },
         headerStyle: {
-          backgroundColor: colors.primary
+          backgroundColor: colors.primary,
         },
-        headerTintColor: colors.tertiary
-      }}
-    >
+        headerTintColor: colors.tertiary,
+      }}>
       <Tabs.Screen
         name="index"
         options={{
@@ -49,13 +48,13 @@ export default function TabLayout() {
                 )}
               </Pressable>
             </Link>
-          )
+          ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="todo"
         options={{
-          title: 'Two',
+          title: 'Todo',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Link href="/test" asChild>
@@ -70,7 +69,7 @@ export default function TabLayout() {
                 )}
               </Pressable>
             </Link>
-          )
+          ),
         }}
       />
       <Tabs.Screen
@@ -78,23 +77,23 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <TabBarIcon name="amazon" color={color} />,
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Tabs.Screen
         name="four"
         options={{
           title: 'Four',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
       <Tabs.Screen
         name="five"
         options={{
           title: 'Five',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
     </Tabs>
-  )
+  );
 }
