@@ -1,11 +1,12 @@
 {
   "name": "testando-libs",
-  "main": "expo-router/entry",
+  "main": "index.js",
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "npx expo run:android",
+    "android-clean": "npm start -- --reset-cache & npx expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint"
@@ -14,13 +15,16 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@expo/config-plugins": "^10.1.2",
     "@expo/vector-icons": "^14.1.0",
     "@hookform/resolvers": "^5.2.1",
     "@react-navigation/native": "^7.1.6",
+    "@realm/react": "^0.11.0",
     "eslint-config-expo": "~9.2.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "expo": "~53.0.20",
+    "expo-dev-client": "~5.2.4",
     "expo-font": "~13.3.2",
     "expo-linking": "~7.1.7",
     "expo-router": "~5.1.4",
@@ -35,18 +39,22 @@
     "react-dom": "19.0.0",
     "react-hook-form": "^7.62.0",
     "react-native": "0.79.5",
+    "react-native-get-random-values": "^1.11.0",
     "react-native-mask-input": "^1.2.3",
     "react-native-paper": "^5.14.5",
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "^5.4.0",
     "react-native-screens": "~4.11.1",
     "react-native-web": "~0.20.0",
+    "realm": "^20.2.0",
     "tailwindcss": "^3.4.17",
-    "zod": "^4.1.5"
+    "zod": "^4.1.5",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@types/react": "~19.0.10",
+    "@types/realm": "^1.13.0",
     "eslint": "^9.34.0",
     "eslint-config-expo": "~9.2.0",
     "eslint-config-universe": "^15.0.3",

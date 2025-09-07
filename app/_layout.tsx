@@ -1,75 +1,74 @@
-import { useFonts } from 'expo-font'
-import { Stack } from 'expo-router'
-import * as SplashScreen from 'expo-splash-screen'
-import { useEffect } from 'react'
-import 'react-native-reanimated'
-import '../global.css'
+import { useFonts } from 'expo-font';
+import { Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
+import 'react-native-reanimated';
+import '../global.css';
 
-import { PaperProvider } from 'react-native-paper'
-import { useColorScheme } from 'react-native'
-import { DarkTheme, LightTheme } from '@/styles'
-import {
-  NavigationDarkTheme,
-  NavigationLightTheme
-} from '@/styles/navigationThemes'
-import { ThemeProvider } from '@react-navigation/native'
+import { PaperProvider } from 'react-native-paper';
+import { useColorScheme } from 'react-native';
+import { DarkTheme, LightTheme } from '@/styles';
+import { NavigationDarkTheme, NavigationLightTheme } from '@/styles/navigationThemes';
+import { ThemeProvider } from '@react-navigation/native';
+import { RealmWrapper as RealmProvider } from '@/db/realm';
 
 export {
   // Catch any errors thrown by the Layout component.
-  ErrorBoundary
-} from 'expo-router'
+  ErrorBoundary,
+} from 'expo-router';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)'
-}
+  initialRouteName: '(tabs)',
+};
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync()
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     'Roboto-Regular': require('../assets/fonts/Roboto-Regular.ttf'),
     'Roboto-Bold': require('../assets/fonts/Roboto-Bold.ttf'),
     'Roboto-Light': require('../assets/fonts/Roboto-Light.ttf'),
-    'Roboto-Medium': require('../assets/fonts/Roboto-Medium.ttf')
-  })
+    'Roboto-Medium': require('../assets/fonts/Roboto-Medium.ttf'),
+  });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
-    if (error) throw error
-  }, [error])
+    if (error) throw error;
+  }, [error]);
 
   useEffect(() => {
     if (loaded) {
-      SplashScreen.hideAsync()
+      SplashScreen.hideAsync();
     }
-  }, [loaded])
+  }, [loaded]);
 
   if (!loaded) {
-    return null
+    return null;
   }
 
-  return <RootLayoutNav />
+  return <RootLayoutNav />;
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme()
+  const colorScheme = useColorScheme();
 
-  const paperTheme = colorScheme === 'dark' ? DarkTheme : LightTheme
+  const paperTheme = colorScheme === 'dark' ? DarkTheme : LightTheme;
 
-  const navigationTheme =
-    colorScheme === 'dark' ? NavigationDarkTheme : NavigationLightTheme
+  const navigationTheme = colorScheme === 'dark' ? NavigationDarkTheme : NavigationLightTheme;
 
   return (
-    <PaperProvider theme={paperTheme}>
-      <ThemeProvider value={navigationTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-          <Stack.Screen name="test" options={{ headerShown: true }} />
-        </Stack>
-      </ThemeProvider>
-    </PaperProvider>
-  )
+    <RealmProvider>
+      <PaperProvider theme={paperTheme}>
+        <ThemeProvider value={navigationTheme}>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+            <Stack.Screen name="test" options={{ headerShown: true }} />
+          </Stack>
+        </ThemeProvider>
+      </PaperProvider>
+    </RealmProvider>
+  );
 }

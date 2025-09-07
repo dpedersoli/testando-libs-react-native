@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
-import { SafeAreaView, StyleSheet, View, type TextInput as RNTextInputType } from 'react-native';
-import { TextInput, Button, HelperText } from 'react-native-paper';
-import { useForm, Controller } from 'react-hook-form';
+import { SafeAreaView, View, type TextInput as RNTextInputType } from 'react-native';
+import { Button } from 'react-native-paper';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Input from '@/components/Input/Input';

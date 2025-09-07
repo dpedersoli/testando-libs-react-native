@@ -17,3 +17,26 @@
     "styles/color-hue.ts"  
   ]
 }
+
+// {
+//   "extends": "expo/tsconfig.base",
+//   "compilerOptions": {
+//     "strict": true,
+//     "esModuleInterop": true,
+//     "resolveJsonModule": true,
+//     "module": "Node16",
+//     "moduleResolution": "node16",
+//     "paths": {
+//       "@/*": ["./*"]
+//     },
+//     "customConditions": ["react-native", "development"]
+//   },
+//   "include": [
+//     "**/*.ts",
+//     "**/*.tsx",
+//     ".expo/types/**/*.ts",
+//     "expo-env.d.ts",
+//     "nativewind-env.d.ts",
+//     "styles/color-hue.ts"
+//   ]
+// }
