@@ -17,6 +17,7 @@ const appJson = {
     },
     ios: {
       supportsTablet: true,
+      bundleIdentifier: 'com.dpms.testandolibs',
     },
     android: {
       adaptiveIcon: {
