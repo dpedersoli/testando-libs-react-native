@@ -3,10 +3,12 @@ import { createRealmContext } from '@realm/react';
 import { Task } from './schemas';
 import Realm from 'realm';
 
-export const CURRENT_REALM_SCHEMA_VERSION = 4;
+export const CURRENT_REALM_SCHEMA_VERSION = 8;
 
 const migrationFunction = (oldRealm: Realm, newRealm: Realm) => {
   if (oldRealm.schemaVersion < CURRENT_REALM_SCHEMA_VERSION) {
+    console.log(`MIGROOOOOU O REALM!!! para v${CURRENT_REALM_SCHEMA_VERSION}`);
+
     const oldTasks = oldRealm.objects<Task>('Task');
     const newTasks = newRealm.objects<Task>('Task');
 
