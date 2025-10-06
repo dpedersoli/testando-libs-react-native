@@ -1,10 +1,15 @@
-// src/store/useTaskStore.ts
 import { create } from 'zustand';
 import Realm from 'realm';
 import { Task } from '@/db/schemas';
 
+interface TaskDTO {
+  _id: string;
+  title: string;
+  done: boolean;
+}
+
 interface TaskState {
-  tasks: Realm.Results<Task> | Task[];
+  tasks: TaskDTO[];
   loadTasks: (realm: Realm) => void;
   addTask: (realm: Realm, title: string) => void;
   toggleDone: (realm: Realm, _id: string) => void;
@@ -12,11 +17,16 @@ interface TaskState {
 }
 
 export const useTaskStore = create<TaskState>((set, get) => ({
-  tasks: [],
+  tasks: [] as TaskDTO[],
 
   loadTasks: (realm) => {
     const all = realm.objects<Task>('Task');
-    set({ tasks: all });
+    const copy = all.map((task: Task) => ({
+      _id: task._id,
+      title: task.title,
+      done: task.done,
+    }));
+    set({ tasks: copy });
   },
 
   addTask: (realm, title) => {
