@@ -1,11 +1,14 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { createRealmContext } from '@realm/react';
 import { Task } from './schemas';
 import Realm from 'realm';
+import { useTaskStore } from '@/store/useTaskStore';
 
-export const CURRENT_REALM_SCHEMA_VERSION = 8;
+export const CURRENT_REALM_SCHEMA_VERSION = 10;
 
-const migrationFunction = (oldRealm: Realm, newRealm: Realm) => {
+const { RealmProvider, useRealm, useQuery, useObject } = createRealmContext();
+
+function migrationFunction(oldRealm: Realm, newRealm: Realm) {
   if (oldRealm.schemaVersion < CURRENT_REALM_SCHEMA_VERSION) {
     console.log(`MIGROOOOOU O REALM!!! para v${CURRENT_REALM_SCHEMA_VERSION}`);
 
@@ -16,11 +19,32 @@ const migrationFunction = (oldRealm: Realm, newRealm: Realm) => {
       // newTasks[i].title = 'MIGROOOOOU O REALM!!! para v4';
     }
   }
-};
+}
 
-const { RealmProvider, useRealm, useQuery, useObject } = createRealmContext();
+function RealmListener() {
+  const realm = useRealm();
+  const loadTasks = useTaskStore().loadTasks;
 
-export { useRealm, useQuery, useObject };
+  useEffect(() => {
+    if (!realm) return;
+
+    const tasksResults = realm.objects<Task>('Task');
+
+    const listener = () => {
+      loadTasks(realm);
+    };
+
+    tasksResults.addListener(listener);
+
+    loadTasks(realm);
+
+    return () => {
+      tasksResults.removeListener(listener);
+    };
+  }, [realm, loadTasks]);
+
+  return null;
+}
 
 export function RealmWrapper({ children }: { children: ReactNode }) {
   return (
@@ -28,7 +52,10 @@ export function RealmWrapper({ children }: { children: ReactNode }) {
       schema={[Task]}
       schemaVersion={CURRENT_REALM_SCHEMA_VERSION}
       onMigration={migrationFunction}>
+      <RealmListener />
       {children}
     </RealmProvider>
   );
 }
+
+export { useRealm, useQuery, useObject };

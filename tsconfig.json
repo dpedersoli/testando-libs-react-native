@@ -14,7 +14,8 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts",
-    "styles/color-hue.ts"  
+    "styles/color-hue.ts",
+    "metro.config.js"
   ]
 }
 

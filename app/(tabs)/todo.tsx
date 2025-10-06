@@ -1,13 +1,10 @@
-// app/(tabs)/todo.tsx
-import React, { useEffect } from 'react';
 import { View, FlatList, Text, StyleSheet } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Input from '@/components/Input/Input';
 import { Button } from 'react-native-paper';
-import { useRealm, useQuery } from '@/db/realm';
-import { Task } from '@/db/schemas';
+import { useRealm } from '@/db/realm';
 import { useTaskStore } from '@/store/useTaskStore';
 
 export const registerTaskSchema = z.object({
@@ -20,11 +17,9 @@ export const registerTaskSchema = z.object({
 type RegisterTaskData = z.infer<typeof registerTaskSchema>;
 
 export default function Todo() {
-  const realm = useRealm(); // <— HOOK válido dentro do componente
-  const results = useQuery<Task>('Task'); // <— Hook válido dentro do componente
+  const realm = useRealm();
 
-  // const tasks = useTaskStore().tasks;
-  const loadTasks = useTaskStore().loadTasks;
+  const tasks = useTaskStore().tasks;
   const addTask = useTaskStore().addTask;
   const toggleDone = useTaskStore().toggleDone;
   const removeTask = useTaskStore().removeTask;
@@ -38,10 +33,6 @@ export default function Todo() {
     resolver: zodResolver(registerTaskSchema),
     defaultValues: { newTask: '' },
   });
-
-  useEffect(() => {
-    loadTasks(realm);
-  }, [realm]);
 
   const onSubmit = (data: RegisterTaskData) => {
     if (!data.newTask) return;
@@ -69,7 +60,7 @@ export default function Todo() {
       </View>
 
       <FlatList
-        data={results} // dados reativos diretos do Realm
+        data={tasks}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <View
