@@ -15,6 +15,8 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@emotion/native": "^11.11.0",
+    "@emotion/react": "^11.14.0",
     "@expo/config-plugins": "^10.1.2",
     "@expo/vector-icons": "^14.1.0",
     "@hookform/resolvers": "^5.2.1",
@@ -33,10 +35,11 @@
     "expo-system-ui": "~5.0.10",
     "expo-web-browser": "~14.2.0",
     "prettier": "^3.6.2",
-    "react": "19.0.0",
+    "prop-types": "^15.8.1",
+    "react": "^19.0.0",
     "react-dom": "19.0.0",
     "react-hook-form": "^7.62.0",
-    "react-native": "0.79.5",
+    "react-native": "^0.79.5",
     "react-native-get-random-values": "^1.11.0",
     "react-native-mask-input": "^1.2.3",
     "react-native-paper": "^5.14.5",
