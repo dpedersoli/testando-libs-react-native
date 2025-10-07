@@ -65,8 +65,8 @@ export default function Form() {
   };
 
   return (
-    <SafeAreaView className="flex-1 justify-center p-4">
-      <View className="gap-3">
+    <SafeAreaView>
+      <View>
         <Input
           name="Name"
           identifier="name"
@@ -139,11 +139,7 @@ export default function Form() {
           onSubmit={handleSubmit(onSubmit)}
         />
 
-        <Button
-          mode="contained"
-          loading={isSubmitting}
-          onPress={handleSubmit(onSubmit)}
-          className="mt-4">
+        <Button mode="contained" loading={isSubmitting} onPress={handleSubmit(onSubmit)}>
           Registrar
         </Button>
       </View>
