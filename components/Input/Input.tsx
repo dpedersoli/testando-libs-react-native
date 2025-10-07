@@ -74,7 +74,7 @@ function InputComponent<TFieldValues extends FieldValues>(
       control={control}
       name={identifier}
       render={({ field: { onChange, value } }) => (
-        <View className="gap-2">
+        <View>
           <TextInput
             ref={ref}
             render={(inputProps) => (
