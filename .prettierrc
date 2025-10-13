@@ -11,5 +11,8 @@
   "trailingComma": "es5",
   "endOfLine": "auto",
   "bracketSameLine": true,
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "jsxSingleQuote": true
 }
