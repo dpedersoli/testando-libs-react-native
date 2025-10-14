@@ -1,6 +1,6 @@
 import { MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
 import { Platform } from 'react-native';
-import ColorHue from '../styles/color-hue';
+import { ColorHue } from './color-hue';
 
 export function shadow(elevation: number) {
   return (

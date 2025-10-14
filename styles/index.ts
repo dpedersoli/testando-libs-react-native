@@ -1,7 +1,7 @@
 import { MD3DarkTheme, MD3LightTheme } from 'react-native-paper';
 import { darkSchema, lightSchema } from './colors';
 import { customFonts } from './typography';
-import ColorHue from '../styles/color-hue';
+import { ColorHue } from './color-hue';
 
 const theme = {};
 
