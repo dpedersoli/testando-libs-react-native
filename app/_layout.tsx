@@ -6,10 +6,10 @@ import 'react-native-reanimated';
 
 import { PaperProvider } from 'react-native-paper';
 import { useColorScheme } from 'react-native';
-import { DarkTheme, LightTheme } from '@/styles';
-import { NavigationDarkTheme, NavigationLightTheme } from '@/styles/navigationThemes';
+import { DarkTheme, LightTheme } from '@/src/styles';
+import { NavigationDarkTheme, NavigationLightTheme } from '@/src/styles/navigationThemes';
 import { ThemeProvider } from '@react-navigation/native';
-import { RealmWrapper as RealmProvider } from '@/db/realm';
+import { RealmWrapper as RealmProvider } from '@/src/db/realm';
 
 export {
   // Catch any errors thrown by the Layout component.

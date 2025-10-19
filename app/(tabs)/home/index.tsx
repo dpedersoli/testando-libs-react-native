@@ -1,6 +1,6 @@
 import React from 'react';
-import useAppTheme from '@/hooks/useAppTheme';
-import { shadow } from '@/styles/colors';
+import useAppTheme from '@/src/hooks/useAppTheme';
+import { shadow } from '@/src/styles/colors';
 import { Link, useRouter } from 'expo-router';
 import { View } from 'react-native';
 import { Text, Button } from 'react-native-paper';
@@ -27,13 +27,13 @@ export default function Home() {
         <Text>Texto secundário</Text>
       </View>
 
-      <Text variant="headlineLarge">Título Principal</Text>
-      <Text variant="bodyMedium">Texto do corpo</Text>
-      <Text variant="labelSmall">Label pequeno</Text>
+      <Text variant='headlineLarge'>Título Principal</Text>
+      <Text variant='bodyMedium'>Texto do corpo</Text>
+      <Text variant='labelSmall'>Label pequeno</Text>
 
       <View>
         <Button
-          mode="contained"
+          mode='contained'
           buttonColor={customColors.tertiary[10]}
           textColor={customColors.error[10]}
           onPress={navigateToDetails}>
@@ -41,7 +41,7 @@ export default function Home() {
         </Button>
 
         <Button
-          mode="contained"
+          mode='contained'
           buttonColor={colors.primary}
           textColor={colors.onPrimary}
           contentStyle={shadow(4)}>
@@ -55,7 +55,7 @@ export default function Home() {
           </Link>
         </Button>
 
-        <Button mode="contained" buttonColor={customColors.tertiary[10]} contentStyle={shadow(4)}>
+        <Button mode='contained' buttonColor={customColors.tertiary[10]} contentStyle={shadow(4)}>
           <Link
             href={{
               pathname: '/home/form',

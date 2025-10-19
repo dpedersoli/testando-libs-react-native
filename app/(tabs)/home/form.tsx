@@ -68,58 +68,58 @@ export default function Form() {
     <SafeAreaView>
       <View>
         <Input
-          name="Name"
-          identifier="name"
-          placeholder="Nome"
+          name='Name'
+          identifier='name'
+          placeholder='Nome'
           control={control}
           error={errors.name}
           required
-          autoCapitalize="words"
-          autoComplete="name"
-          returnKeyType="next"
+          autoCapitalize='words'
+          autoComplete='name'
+          returnKeyType='next'
           maxLength={5}
           onSubmitEditing={() => emailRef.current?.focus()}
         />
 
         <Input
           ref={emailRef}
-          name="Email"
-          identifier="email"
-          placeholder="Email"
+          name='Email'
+          identifier='email'
+          placeholder='Email'
           control={control}
           error={errors.email}
           required
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoComplete="email"
-          returnKeyType="next"
+          keyboardType='email-address'
+          autoCapitalize='none'
+          autoComplete='email'
+          returnKeyType='next'
           onSubmitEditing={() => passwordRef.current?.focus()}
         />
 
         <Input
           ref={passwordRef}
-          name="Password"
-          identifier="password"
-          placeholder="Senha"
+          name='Password'
+          identifier='password'
+          placeholder='Senha'
           control={control}
           error={errors.password}
           required
           secureTextEntry
-          returnKeyType="next"
+          returnKeyType='next'
           onSubmitEditing={() => phoneRef.current?.focus()}
         />
 
         <Input
           ref={phoneRef}
-          name="Phone Number"
-          identifier="phone"
-          placeholder="(555) 123-4567"
+          name='Phone Number'
+          identifier='phone'
+          placeholder='(555) 123-4567'
           control={control}
           error={errors.phone}
-          mask="US_PHONE_DYNAMIC"
+          mask='US_PHONE_DYNAMIC'
           required
-          keyboardType="phone-pad"
-          returnKeyType="next"
+          keyboardType='phone-pad'
+          returnKeyType='next'
           maxLength={17}
           customOnChange={handlePhoneChange}
           onSubmitEditing={() => descriptionRef.current?.focus()}
@@ -127,19 +127,19 @@ export default function Form() {
 
         <Input
           ref={descriptionRef}
-          name="Description"
-          identifier="description"
-          placeholder="description"
+          name='Description'
+          identifier='description'
+          placeholder='description'
           control={control}
           error={errors.description}
           required
-          helperText="Descreva sua experiência em até 200 caracteres"
+          helperText='Descreva sua experiência em até 200 caracteres'
           maxLength={200}
           multiline
           onSubmit={handleSubmit(onSubmit)}
         />
 
-        <Button mode="contained" loading={isSubmitting} onPress={handleSubmit(onSubmit)}>
+        <Button mode='contained' loading={isSubmitting} onPress={handleSubmit(onSubmit)}>
           Registrar
         </Button>
       </View>
