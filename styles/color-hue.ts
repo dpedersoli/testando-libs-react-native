@@ -1,4 +1,4 @@
-module.exports = {
+export const ColorHue = {
   primary: {
     0: '#212529',
     10: '#462a84',

@@ -6,6 +6,7 @@ import Input from '@/components/Input/Input';
 import { Button } from 'react-native-paper';
 import { useRealm } from '@/db/realm';
 import { useTaskStore } from '@/store/useTaskStore';
+import * as Styled from '@/styles/todo.styles';
 
 export const registerTaskSchema = z.object({
   newTask: z
@@ -41,27 +42,27 @@ export default function Todo() {
   };
 
   return (
-    <View style={{ flex: 1, padding: 16 }}>
+    <Styled.Container>
       <View style={{ flexDirection: 'row', marginBottom: 16 }}>
         <Input
-          name="New Task"
-          identifier="newTask"
-          placeholder="New Task"
+          name='New Task'
+          identifier='newTask'
+          placeholder='New Task'
           control={control}
           error={errors.newTask}
           required
-          autoCapitalize="words"
+          autoCapitalize='words'
           maxLength={50}
           onSubmit={handleSubmit(onSubmit)}
         />
-        <Button mode="contained" loading={isSubmitting} onPress={handleSubmit(onSubmit)}>
+        <Button mode='contained' loading={isSubmitting} onPress={handleSubmit(onSubmit)}>
           Adicionar
         </Button>
       </View>
 
       <FlatList
         data={tasks}
-        keyExtractor={(item) => item._id}
+        keyExtractor={item => item._id}
         renderItem={({ item }) => (
           <View
             style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 8 }}>
@@ -70,13 +71,13 @@ export default function Todo() {
               style={item.done ? styles.doneText : styles.text}>
               {item.title}
             </Text>
-            <Button mode="contained" onPress={() => removeTask(realm, item._id)}>
+            <Button mode='contained' onPress={() => removeTask(realm, item._id)}>
               ❌
             </Button>
           </View>
         )}
       />
-    </View>
+    </Styled.Container>
   );
 }
 
