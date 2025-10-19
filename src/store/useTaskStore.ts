@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import Realm from 'realm';
-import { Task } from '@/db/schemas';
+import { Task } from '../db/schemas';
 
 interface TaskDTO {
   _id: string;
@@ -19,7 +19,7 @@ interface TaskState {
 export const useTaskStore = create<TaskState>((set, get) => ({
   tasks: [] as TaskDTO[],
 
-  loadTasks: (realm) => {
+  loadTasks: realm => {
     const all = realm.objects<Task>('Task');
     const copy = all.map((task: Task) => ({
       _id: task._id,

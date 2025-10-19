@@ -77,7 +77,7 @@ function InputComponent<TFieldValues extends FieldValues>(
         <View>
           <TextInput
             ref={ref}
-            render={(inputProps) => (
+            render={inputProps => (
               <MaskInput {...inputProps} mask={mask ? Masks[mask] : undefined} />
             )}
             label={`${name}${required ? ' *' : ''}`}
@@ -85,7 +85,7 @@ function InputComponent<TFieldValues extends FieldValues>(
             multiline={multiline}
             maxLength={maxLength}
             value={value}
-            onChangeText={(v) => onChangeComponent(v, onChange)}
+            onChangeText={v => onChangeComponent(v, onChange)}
             textColor={colors.onSurface}
             placeholderTextColor={colors.onSurfaceVariant}
             underlineColor={colors.outline}
@@ -99,12 +99,12 @@ function InputComponent<TFieldValues extends FieldValues>(
             {...config}
           />
           {helperText && !error && (
-            <Text variant="bodySmall" theme={{ colors: { secondary: colors.secondary } }}>
+            <Text variant='bodySmall' theme={{ colors: { secondary: colors.secondary } }}>
               {helperText}
             </Text>
           )}
           {error?.message && (
-            <Text variant="labelMedium" theme={{ colors: { error: colors.error } }}>
+            <Text variant='labelMedium' theme={{ colors: { error: colors.error } }}>
               {error.message as string}
             </Text>
           )}

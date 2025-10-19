@@ -14,7 +14,7 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
-  const { colors, customColors } = useAppTheme();
+  const { colors } = useAppTheme();
 
   return (
     <Tabs
@@ -31,16 +31,16 @@ export default function TabLayout() {
         headerTintColor: colors.tertiary,
       }}>
       <Tabs.Screen
-        name="index"
+        name='index'
         options={{
           title: 'One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href='/modal' asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
-                    name="info-circle"
+                    name='info-circle'
                     size={25}
                     color={colors.onPrimary}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
@@ -52,16 +52,16 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="todo"
+        name='todo'
         options={{
           title: 'Todo',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
           headerRight: () => (
-            <Link href="/test" asChild>
+            <Link href='/test' asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
-                    name="apple"
+                    name='apple'
                     size={25}
                     color={colors.outlineVariant}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
@@ -73,25 +73,25 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="home"
+        name='home'
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <TabBarIcon name="amazon" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name='amazon' color={color} />,
           headerShown: false,
         }}
       />
       <Tabs.Screen
-        name="four"
+        name='four'
         options={{
           title: 'Four',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
         }}
       />
       <Tabs.Screen
-        name="five"
+        name='five'
         options={{
           title: 'Five',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
         }}
       />
     </Tabs>
