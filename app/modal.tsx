@@ -1,5 +1,5 @@
-import { StatusBar } from 'expo-status-bar'
-import { Platform, StyleSheet, View, Text } from 'react-native'
+import { StatusBar } from 'expo-status-bar';
+import { Platform, StyleSheet, View, Text } from 'react-native';
 
 export default function ModalScreen() {
   return (
@@ -8,22 +8,22 @@ export default function ModalScreen() {
       <View style={styles.separator} />
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   separator: {
     marginVertical: 30,
     height: 1,
-    width: '80%'
-  }
-})
+    width: '80%',
+  },
+});
