@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native';
 
 export default function TabFourScreen() {
   return (
@@ -6,22 +6,22 @@ export default function TabFourScreen() {
       <Text style={styles.title}>Tab Four</Text>
       <View style={styles.separator} />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   separator: {
     marginVertical: 30,
     height: 1,
-    width: '80%'
-  }
-})
+    width: '80%',
+  },
+});

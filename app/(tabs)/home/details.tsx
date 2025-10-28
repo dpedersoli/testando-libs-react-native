@@ -13,9 +13,9 @@ export default function Details() {
 
   return (
     <View>
-      <Text variant="headlineLarge">DETAILS</Text>
+      <Text variant='headlineLarge'>DETAILS</Text>
 
-      <Button mode="contained" buttonColor="#67E480" onPress={navigateToHome}>
+      <Button mode='contained' buttonColor='#67E480' onPress={navigateToHome}>
         Go to home
       </Button>
 

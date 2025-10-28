@@ -8,7 +8,7 @@ export default function Settings() {
 
   return (
     <View>
-      <Text variant="headlineLarge">SETTINGS</Text>
+      <Text variant='headlineLarge'>SETTINGS</Text>
 
       <Text>Settings para Title {title}</Text>
       <Text>ID: {id}</Text>
